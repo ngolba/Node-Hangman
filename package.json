@@ -1,0 +1,30 @@
+{
+  "name": "node-hangman",
+  "version": "1.0.0",
+  "description": "CLI Base Hangman Game",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ngolba/Node-Hangman.git"
+  },
+  "keywords": [
+    "hangman",
+    "logic",
+    "npm"
+  ],
+  "author": "Nathan Golba",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ngolba/Node-Hangman/issues"
+  },
+  "homepage": "https://github.com/ngolba/Node-Hangman#readme",
+  "dependencies": {
+    "colors": "^1.3.2",
+    "dotenv": "^6.1.0",
+    "prompt": "^1.0.0",
+    "request": "^2.88.0"
+  }
+}
