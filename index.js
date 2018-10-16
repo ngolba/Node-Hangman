@@ -12,6 +12,7 @@ let currentGuess = '';
 let guessesLeft = 10;
 let incorrectGuesses = '';
 let guesses = [];
+let lettersRemaining = [];
 const userInput = {
     properties: {
         guess: {
@@ -26,6 +27,18 @@ const userInput = {
 
 const lineBreak = () => console.log('\n******************************************************\n');
 
+const checkGameState = () => {
+    if (guessesLeft === 0) {
+        console.log(`Game Over. The word was '${currentWord.word}'`);
+        process.exit();
+    }
+    lettersRemaining = currentWord.processedLetterArray.filter(letter => !letter.guessed)
+    if (!lettersRemaining.length) {
+        console.log("You've won!");
+        process.exit();
+    }
+}
+
 const updatePlay = (guess) => {
     lineBreak()
     currentWord.guess(guess);
@@ -38,6 +51,7 @@ const updatePlay = (guess) => {
     console.log(`Guesses remaining: ${guessesLeft}`);
     currentWord.printString();
     lineBreak();
+    checkGameState();
     receiveGuess();
 }
 
@@ -62,7 +76,6 @@ const receiveGuess = () => {
 
 const startGame = (word) => {
     guessesLeft = 10;
-    console.log(word);
     currentWord = new Word(word);
     currentWord.createLetters();
     currentWord.printString();
@@ -75,12 +88,8 @@ const generateRandomWord = () => {
             console.log("Error with API call.")
             return;
         }
-        if (!/^[a-zA-z]+$/.test(JSON.parse(body).word)) { // check if word has special characters 
-            generateRandomWord();
-        } else {
-            startGame(JSON.parse(body).word);
-            return;
-        }
+
+        (!/^[a-zA-z]+$/.test(JSON.parse(body).word)) ? generateRandomWord() : startGame((JSON.parse(body).word).toLowerCase());
     })
 }
 
