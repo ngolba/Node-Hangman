@@ -5,26 +5,20 @@ class Word {
         this.word = word;
         this.unprocessedLetterArray = [...word];
         this.processedLetterArray = [];
-        this.printedLetters = ''
+        this.printedLetters = '';
     }
 
     createLetters () {
-        for (let i = 0; i < this.unprocessedLetterArray.length; i++) {
-            this.processedLetterArray.push(new Letter(this.unprocessedLetterArray[i]))
-        }
+        this.processedLetterArray = this.unprocessedLetterArray.map(x => new Letter(x))
     }
+
     printString () {
-        this.printedLetters = '';
-        for (let i = 0; i < this.processedLetterArray.length; i++){
-            this.printedLetters += `${this.processedLetterArray[i].printChar()} `
-        }
+        this.printedLetters = this.processedLetterArray.map(x => x.printChar()).join(' ')
         console.log(this.printedLetters);
     }
 
     guess (character) {
-        for (let i = 0; i < this.processedLetterArray.length; i++){
-            this.processedLetterArray[i].processGuess(character);
-        }
+        return this.processedLetterArray.map(x => x.processGuess(character))
     }
 }
 

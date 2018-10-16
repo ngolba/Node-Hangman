@@ -61,10 +61,11 @@ const receiveGuess = () => {
 }
 
 const startGame = (word) => {
+    console.log(word)
     guessesLeft = 10;
-    console.log(word);
     currentWord = new Word(word);
     currentWord.createLetters();
+    // console.log(currentWord)
     currentWord.printString();
     receiveGuess()
 }
@@ -75,12 +76,8 @@ const generateRandomWord = () => {
             console.log("Error with API call.")
             return;
         }
-        if (!/^[a-zA-z]+$/.test(JSON.parse(body).word)) { // check if word has special characters 
-            generateRandomWord();
-        } else {
-            startGame(JSON.parse(body).word);
-            return;
-        }
+
+        (!/^[a-zA-z]+$/.test(JSON.parse(body).word)) ? generateRandomWord() : startGame((JSON.parse(body).word).toLowerCase());
     })
 }
 

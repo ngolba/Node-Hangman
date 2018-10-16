@@ -5,18 +5,12 @@ class Letter {
     }
 
     processGuess (guess) {
-        if (this.character === guess){
-            this.guessed = true;
-        }
-    }
-    printChar () {
-        if (this.guessed) {
-            return this.character;
-        } else {
-            return '_';
-        }
+        if (this.character === guess) this.guessed = true;
     }
 
+    printChar () {
+        return this.guessed ? this.character : '_'
+    }
 }
 
 module.exports = Letter;
