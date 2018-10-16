@@ -9,16 +9,16 @@ class Word {
     }
 
     createLetters () {
-        this.processedLetterArray = this.unprocessedLetterArray.map(x => new Letter(x))
+        this.processedLetterArray = this.unprocessedLetterArray.map(char => new Letter(char))
     }
 
     printString () {
-        this.printedLetters = this.processedLetterArray.map(x => x.printChar()).join(' ')
+        this.printedLetters = this.processedLetterArray.map(char => char.printChar()).join(' ')
         console.log(this.printedLetters);
     }
 
     guess (character) {
-        return this.processedLetterArray.map(x => x.processGuess(character))
+        return this.processedLetterArray.map(char => char.processGuess(character))
     }
 }
 

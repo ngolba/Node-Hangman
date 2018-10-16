@@ -12,6 +12,7 @@ let currentGuess = '';
 let guessesLeft = 10;
 let incorrectGuesses = '';
 let guesses = [];
+let lettersRemaining = [];
 const userInput = {
     properties: {
         guess: {
@@ -26,6 +27,18 @@ const userInput = {
 
 const lineBreak = () => console.log('\n******************************************************\n');
 
+const checkGameState = () => {
+    if (guessesLeft === 0) {
+        console.log(`Game Over. The word was '${currentWord.word}'`);
+        process.exit();
+    }
+    lettersRemaining = currentWord.processedLetterArray.filter(letter => !letter.guessed)
+    if (!lettersRemaining.length) {
+        console.log("You've won!");
+        process.exit();
+    }
+}
+
 const updatePlay = (guess) => {
     lineBreak()
     currentWord.guess(guess);
@@ -38,6 +51,7 @@ const updatePlay = (guess) => {
     console.log(`Guesses remaining: ${guessesLeft}`);
     currentWord.printString();
     lineBreak();
+    checkGameState();
     receiveGuess();
 }
 
@@ -61,11 +75,9 @@ const receiveGuess = () => {
 }
 
 const startGame = (word) => {
-    console.log(word)
     guessesLeft = 10;
     currentWord = new Word(word);
     currentWord.createLetters();
-    // console.log(currentWord)
     currentWord.printString();
     receiveGuess()
 }
